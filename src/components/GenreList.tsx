@@ -11,8 +11,9 @@ import useGenres, { Genre } from "../hooks/useGenres";
 import getOptimizedImage from "../services/get-optimized-image";
 interface Props {
   onSelect: (genre: Genre) => void;
+  selectedGenre: Genre | null;
 }
-const GenreList = ({ onSelect }: Props) => {
+const GenreList = ({ onSelect, selectedGenre }: Props) => {
   const { data, isLoading } = useGenres();
   if (isLoading) return <Spinner />;
   return (
@@ -30,6 +31,7 @@ const GenreList = ({ onSelect }: Props) => {
                 variant="link"
                 onClick={() => onSelect(data)}
                 fontSize="lg"
+                fontWeight={data.id === selectedGenre?.id ? "bold" : "normal"}
               >
                 {data.name}
               </Button>
